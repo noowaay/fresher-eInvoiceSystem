@@ -1,31 +1,52 @@
-var app = angular.module('myApp', [ 'ngRoute', 'ngResource' ]);
-//app.config(function($routeProvider) {
-//	$routeProvider.when('/users', {
-//		templateUrl : '/fresherangular/views/users.html',
-//		controller : 'usersController'
-//	}).when('/roles', {
-//		templateUrl : '/fresherangular/views/roles.html',
-//		controller : 'rolesController'
-//	})
-//	// Github service example
-//	.when('/main', {
-//		templateUrl : "/fresherangular/views/github/main.html",
-//		controller : "MainController"
-//	}).when("/user/:username", {
-//		templateUrl : "/fresherangular/views/github/user.html",
-//		controller : "UserController"
-//	}).when("/repo/:usernameMainStoreController/:reponame", {
-//		templateUrl : "/fresherangular/views/github/repo.html",
-//		controller : "RepoController"
-//	}).when('/mainstore', {
-//		templateUrl : "/fresherangular/views/store/mainstore.html",
-//		controller : "MainStore"
-//	}).when('/mainstore/:productId', {
-//		templateUrl : "/fresherangular/views/store/productDetail.html",
-//		controller : "StoreDetail"
-//	})
-//	// End Github Service example
-//	.otherwise({
-//		redirectTo : '/main'
-//	});
-//});
+var app = angular.module('myApp', [ 'ngRoute' ]);
+app.config(function($routeProvider) {
+	$routeProvider.when("/", {
+		templateUrl : "/EInvoice/views/home.html",
+		controller : 'mainController',
+		isAuthenticated : false
+	}).when("/signup", {
+		templateUrl : "/EInvoice/views/signup.html",
+		controller : 'usersController',
+		isAuthenticated : false
+	}).when("/login", {
+		templateUrl : "/EInvoice/views/login.html",
+		controller : 'usersController',
+		isAuthenticated : false
+	// }).when("/dashboard", {
+	// templateUrl : "/EInvoice/views/dashboard.html",
+	// controller : 'dashboardController',
+	// isAuthenticated : false
+	// }).when("/admin", {
+	// templateUrl : "/EInvoice/views/login.html",
+	// controller : 'usersController',
+	// isAuthenticated : false
+	// }).when("/admin", {
+	// templateUrl : "/EInvoice/views/admin/userManagement.html",
+	// controller : 'UserController',
+	// }).when("/user-manage", {
+	// templateUrl : "/EInvoice/views/admin/userManagement.html",
+	// controller : 'UserController',
+	// }).when("/config-email", {
+	// templateUrl : "/EInvoice/views/admin/config-email.html",
+	// controller : 'UserController',
+	}).otherwise({
+		redirectTo : '/'
+	});
+});
+
+app.run(function($rootScope, $location, AuthenticationService) {
+	$rootScope.$on("$routeChangeStart", function(event, next, current) {
+		if ($location.path() == "/login") {
+			if (AuthenticationService.getUserAuthenticated()) {
+				$location.path("/");
+			}
+		}
+		
+		if (next.$$route.isAuthenticated
+				&& !AuthenticationService.getUserAuthenticated()) {
+			alert("You need to be authenticated to see this page!");
+			event.preventDefault();
+			$location.path("/login");
+		}
+	});
+});

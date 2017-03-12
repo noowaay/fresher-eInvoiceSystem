@@ -1,5 +1,7 @@
 package csc.service;
 
-public class CustomerService {
+import csc.models.Customer;
 
+public interface CustomerService {
+	void saveCustomer(Customer customer);
 }

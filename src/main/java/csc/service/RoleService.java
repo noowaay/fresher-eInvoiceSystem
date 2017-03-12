@@ -1,5 +1,7 @@
 package csc.service;
 
-public class RoleService {
+import csc.models.Role;
 
+public interface RoleService {
+	Role findByName(String name);
 }

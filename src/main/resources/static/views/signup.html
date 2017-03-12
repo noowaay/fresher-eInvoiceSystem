@@ -1,0 +1,94 @@
+
+<div class="container" ng-controller="RegisterController as ctrl">
+	<div class="row main">		
+		<div class="main-login main-center">
+		<img id="profile-img" class="profile-img-card"
+				src="/EInvoice/images/signup.png" />
+			<form name="myForm" class="form-horizontal" ng-submit="ctrl.submit()"  action="#/login" method="POST">
+				<input type="hidden" ng-model="ctrl.res.id" />
+				<div class="form-group">
+					<label for="name" class="cols-sm-2 control-label">Your Name</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa"
+								aria-hidden="true"></i></span> <input ng-model="ctrl.res.name"
+								type="text" class="form-control" name="name" id="name"
+								placeholder="Enter your Name" required />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="email" class="cols-sm-2 control-label">Your
+						Email</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-envelope fa" aria-hidden="true"></i></span> <input
+								ng-model="ctrl.res.email" type="email" class="form-control"
+								name="email" id="email" placeholder="Enter your Email" required/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="username" class="cols-sm-2 control-label">Username</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-users fa"
+								aria-hidden="true"></i></span> <input ng-model="ctrl.res.username"
+								type="text" class="form-control" name="username" id="username"
+								placeholder="Enter your Username" ng-maxlength="15" required/>
+								
+						</div>
+						<div align="center"><p style="color:red" ng-if="myForm.username.$error.maxlength">Username chỉ cho phép 15 ký tự</p></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="cols-sm-2 control-label">Password</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-lock fa-lg" aria-hidden="true"></i></span> <input
+								ng-model="ctrl.res.password" type="password"
+								class="form-control" name="password" id="password"
+								placeholder="Enter your Password" ng-model="password" ng-pattern="/^[a-zA-Z0-9]*$/"  required/>
+						</div>
+						<div align="center"><p style="color:red" ng-if="myForm.password.$error.pattern">Chỉ cho phép ký tự a-z, 0-9!!!</p></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="confirm" class="cols-sm-2 control-label">Confirm
+						Password</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-lock fa-lg" aria-hidden="true"></i></span> <input
+								type="password" class="form-control" name="confirm" id="confirm" ng-model="confirm"
+								placeholder="Confirm your Password"  pw-check='password'  required />
+						</div>
+						<div align="center" >
+  <span style="color:red" ng-dirty ng-if='myForm.confirm.$error.pwmatch && myForm.confirm.$dirty'> Không khớp Password </span>
+</div>
+					</div>
+				</div>
+
+				<div class="form-group " >
+					<button type="submit"
+						class="btn btn-primary btn-lg btn-block " ng-disabled="myForm.$invalid" > Sign Up</button>
+				</div>
+				
+					
+				
+				<div class="" align="center">
+					<a href="#/login" style="font-weight:bold">Have an account? Login now!</a>
+				</div>
+
+				
+			</form>
+		</div>
+	</div>
+</div>
+
